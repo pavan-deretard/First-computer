@@ -11,7 +11,7 @@ always @(posedge clk,posedge jmp,posedge rst) begin
       if (jmp) begin
         add <= jmp_add;
       end else if (pc_inc) begin
-        add <= add + 1;
+        add <= add + 4;
       end
     end
 
