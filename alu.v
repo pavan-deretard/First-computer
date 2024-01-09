@@ -1,4 +1,4 @@
-module alu(input wire[2:0] inst,input wire[7:0] operand_1,operand_2, output reg[7:0] sol);
+module alu(input wire[3:0] inst,input wire[7:0] operand_1,operand_2, output reg[7:0] sol);
 integer i;
 always @* begin
 case(inst)
@@ -8,7 +8,9 @@ case(inst)
 	4:sol<=operand_1 | operand_2;	 //or
 	5:sol<=operand_1 ^ operand_2;	//xor
 	6:sol<=~operand_1;				//not
-	7:sol<=operand_1<<operand_2;
+	7:sol<=operand_1<<operand_2;	//shift left
+	8:sol<=operand_1>>operand_2;	//shift right
+	9:sol<=operand_1==operand_2?8'h01:8'h00; //equality comparitor
 	
 	default:sol<=8'bz;
 endcase
@@ -18,7 +20,7 @@ endmodule
 module alu_tb();
 wire[7:0] sol;
 reg[7:0] operand_1,operand_2;
-reg[2:0] inst; 
+reg[3:0] inst; 
 alu a(.sol(sol),.inst(inst),.operand_1(operand_1),.operand_2(operand_2));
 initial begin
 inst=0;
