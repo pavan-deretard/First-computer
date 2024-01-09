@@ -1,7 +1,7 @@
 module decode (input wire[31:0] inst,
 					output reg w_r,rst,pc_inc,jmp,
 					output reg[1:0] op_sel,
-					output reg[4:0] jmp_add,
+					output reg[5:0] jmp_add,
 					output reg[2:0] alu_inst,
 					output reg[7:0] reg_data,
 					output reg[3:0] w_add,r_add1,r_add2);
@@ -47,7 +47,78 @@ case(inst[31:24])
 		reg_data<=8'hzz;
 
 		end
+	8'h03:begin
+		w_r<=0;
+		alu_inst<=3;
+		rst<=0;
+		pc_inc<=1;
+		jmp<=0;
+		jmp_add<=0;
+		op_sel<=2'b10;
+		w_add<=4'hx;
+		r_add1<=inst[11:8];
+		r_add2<=inst[3:0];
+		reg_data<=8'hzz;
+
+		end
+	8'h04:begin
+		w_r<=0;
+		alu_inst<=4;
+		rst<=0;
+		pc_inc<=1;
+		jmp<=0;
+		jmp_add<=0;
+		op_sel<=2'b10;
+		w_add<=4'hx;
+		r_add1<=inst[11:8];
+		r_add2<=inst[3:0];
+		reg_data<=8'hzz;
+
+		end
+	8'h05:begin
+		w_r<=0;
+		alu_inst<=5;
+		rst<=0;
+		pc_inc<=1;
+		jmp<=0;
+		jmp_add<=0;
+		op_sel<=2'b10;
+		w_add<=4'hx;
+		r_add1<=inst[11:8];
+		r_add2<=inst[3:0];
+		reg_data<=8'hzz;
+
+		end
+	8'h06:begin
+		w_r<=0;
+		alu_inst<=6;
+		rst<=0;
+		pc_inc<=1;
+		jmp<=0;
+		jmp_add<=0;
+		op_sel<=2'b10;
+		w_add<=4'hx;
+		r_add1<=inst[11:8];
+		r_add2<=inst[3:0];
+		reg_data<=8'hzz;
+
+		end
 	8'h07:begin
+		w_r<=0;
+		alu_inst<=7;
+		rst<=0;
+		pc_inc<=1;
+		jmp<=0;
+		jmp_add<=0;
+		op_sel<=2'b10;
+		w_add<=4'hx;
+		r_add1<=inst[11:8];
+		r_add2<=inst[3:0];
+		reg_data<=8'hzz;
+
+		end
+		
+	8'h10:begin
 		w_r<=1;
 		alu_inst<=0;
 		rst<=0;
@@ -59,9 +130,8 @@ case(inst[31:24])
 		r_add1<=4'hz;
 		r_add2<=4'hz;
 		reg_data<=inst[15:8];
-
-		end
-	8'h08:begin
+	end
+	8'h1f:begin
 		w_r<=0;
 		alu_inst<=0;
 		rst<=0;
@@ -73,6 +143,20 @@ case(inst[31:24])
 		r_add1<=inst[11:8];
 		r_add2<=inst[3:0];
 		reg_data<=8'hzz;
+		end
+	8'h20:begin
+		w_r<=0;
+		alu_inst<=0;
+		rst<=0;
+		pc_inc<=0;
+		jmp<=1;
+		jmp_add[5:0]<=inst[21:16];
+		op_sel<=2'b00;
+		w_add<=4'hx;
+		r_add1<=inst[11:8];
+		r_add2<=inst[3:0];
+		reg_data<=8'hzz;
+
 		end
 endcase
 end
