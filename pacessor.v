@@ -55,7 +55,7 @@ else op=8'hzz;
 end
 program_counter pc(pc_inc,rst,clk,jmp,jmp_add,add);
 reg_bank rb(w_r,w_add,r_add1,r_add2,reg_data,operand_1[7:0],operand_2);
-alu al(alu_inst,operand_1,operand_2,sol);
+alu al(clk,alu_inst,operand_1,operand_2,sol);
 decode dc(inst,w_r,rst_in,jmp_sig,jmp_sig_c,op_sel,jmp_add,alu_inst,reg_data,w_add,r_add1,r_add2);
 control c(jmp_sig,jmp_sig_c,sol,jmp,pc_inc);
 endmodule
