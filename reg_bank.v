@@ -11,8 +11,8 @@ end
 always @* begin
 	if(w_r) begin
 		regs[w_add]<=data;
-		data_1<=8'bz;
-		data_2<=8'bz;
+		data_1<=regs[r_add_1];
+		data_2<=regs[r_add_2];
 		end
 	else if(!w_r) begin
 		data_1<=regs[r_add_1];
