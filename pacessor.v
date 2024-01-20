@@ -56,7 +56,7 @@ end
 program_counter pc(pc_inc,rst,clk,jmp,jmp_add,add);
 reg_bank rb(w_r,w_add,r_add1,r_add2,reg_data,operand_1[7:0],operand_2);
 alu al(clk,alu_inst,operand_1,operand_2,sol);
-decode dc(inst,w_r,rst_in,jmp_sig,jmp_sig_c,op_sel,jmp_add,alu_inst,reg_data,w_add,r_add1,r_add2);
+decode dc(clk,sol,inst,w_r,rst_in,jmp_sig,jmp_sig_c,op_sel,jmp_add,alu_inst,reg_data,w_add,r_add1,r_add2);
 control c(jmp_sig,jmp_sig_c,sol,jmp,pc_inc);
 endmodule
 
@@ -67,21 +67,21 @@ wire[5:0] add_o;
 wire[7:0] op;
 reg[7:0] prog[63:0];
 pacessor p1(clk,rst_master,inst,add_o,op);
-always #50 clk=~clk;
+always #10 clk=~clk;
 always @* begin
 inst={prog[add_o],prog[add_o+1],prog[add_o+2],prog[add_o+3]};
 end
 initial begin
 clk=0;
-{prog[0],prog[1],prog[2],prog[3]}<=32'h10000500;				//0
-{prog[4],prog[5],prog[6],prog[7]}<=32'h10010200;				//4
-{prog[8],prog[9],prog[10],prog[11]}<=32'h10020500;				//8
-{prog[12],prog[13],prog[14],prog[15]}<=32'h1f000000;			//12
-{prog[16],prog[17],prog[18],prog[19]}<=32'h1f000100;			//16
-{prog[20],prog[21],prog[22],prog[23]}<=32'h1f000200;			//20
-{prog[24],prog[25],prog[26],prog[27]}<=32'h21340100;			//24
-{prog[28],prog[29],prog[30],prog[31]}<=32'h213c0002;			//28
-{prog[32],prog[33],prog[34],prog[35]}<=32'h05000100;			//32
+{prog[0],prog[1],prog[2],prog[3]}<=32'h10000100;				//0   
+{prog[4],prog[5],prog[6],prog[7]}<=32'h10010000;				//4 
+{prog[8],prog[9],prog[10],prog[11]}<=32'h01010001;				//8
+{prog[12],prog[13],prog[14],prog[15]}<=32'h20080002;			//12 
+{prog[16],prog[17],prog[18],prog[19]}<=32'h10030300;			//16
+{prog[20],prog[21],prog[22],prog[23]}<=32'h10040500;			//20	
+{prog[24],prog[25],prog[26],prog[27]}<=32'h02040403;			//24
+{prog[28],prog[29],prog[30],prog[31]}<=32'h1f000402;			//28
+{prog[32],prog[33],prog[34],prog[35]}<=32'h09000004;			//32
 {prog[36],prog[37],prog[38],prog[39]}<=32'h06000100;			//36
 {prog[40],prog[41],prog[42],prog[43]}<=32'h07000100;			//40
 {prog[44],prog[45],prog[46],prog[47]}<=32'h20100101;			//44
@@ -90,7 +90,7 @@ clk=0;
 {prog[56],prog[57],prog[58],prog[59]}<=32'h00000100;			//56
 {prog[60],prog[61],prog[62],prog[63]}<=32'h02000100;			//60
 rst_master=1;
-#200;
+#20;
 rst_master=0;
 end
 endmodule
