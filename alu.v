@@ -1,3 +1,4 @@
+`timescale 1ns/1ns
 module alu(input wire clk, input wire[3:0] inst,input wire[7:0] operand_1,operand_2, output reg[7:0] sol);
 reg[7:0] in_sol;
 always @* begin
@@ -16,6 +17,7 @@ case(inst)
 endcase
 end
 always @(posedge clk) begin
+#1
 sol<=in_sol;
 end
 
